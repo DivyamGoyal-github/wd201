@@ -5,46 +5,276 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HTML_FORMS</title>
-    <link rel="stylesheet" href="styleswd201.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7fc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h3 {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+
+        form {
+            background-color: #fff;
+            padding: 40px 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            width: 550px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #entries {
+            text-align: center;
+            background-color: #fff;
+            padding: 40px 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            width: 550px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 4px;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="date"] {
+            width: 90%;
+            padding: 5px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-bottom: 5px;
+            transition: all 0.3s ease;
+            background-color: #f9f9f9;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus,
+        input[type="date"]:focus {
+            border-color: #007bff;
+            outline: none;
+            background-color: #fff;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+
+        button {
+            padding: 12px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        button:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.5);
+        }
+
+
+        #user-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        #entries {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+
+        #submit {
+            width: 100%;
+        }
+
+
+        @media (max-width: 480px) {
+            form {
+                width: 100%;
+                padding: 20px;
+            }
+        }
+    </style>
 </head>
 
 <body>
     <div>
-    <form id="user-form">
-        <h3>Registration Form</h3>
-        <label for="name">Name</label>
+        <form id="user-form">
+            <h3>Registration Form</h3>
+            <label for="name">Name</label>
 
-        <input required type="text" id="name" name="name">
-
-
-        <label for="email">Email</label>
-
-        <input required type="email" id="email" name="email">
+            <input required type="text" id="name" name="name">
 
 
-        <label for="password">Password</label>
+            <label for="email">Email</label>
 
-        <input required type="password" id="password" name="password">
+            <input required type="email" id="email" name="email">
 
-        <label for="dob">Date of Birth</label>
 
-        <input required type="date" id="dob" name="dob">
+            <label for="password">Password</label>
 
-        <div class="checkbox-container">
-            <input required type="checkbox" name="accept terms" id="accept terms">
-            <label for="accept terms">Accept Terms & Conditions</label>
+            <input required type="password" id="password" name="password">
+
+            <label for="dob">Date of Birth</label>
+
+            <input required type="date" id="dob" name="dob">
+
+            <div class="checkbox-container">
+                <input required type="checkbox" name="accept terms" id="accept terms">
+                <label for="accept terms">Accept Terms & Conditions</label>
+            </div>
+
+            <button type="submit" id="submit">Submit</button>
+        </form>
+        <div id="entries">
+            <div>
+                <h2>Entries</h2>
+                <div id="user-entries"></div>
+            </div>
         </div>
-
-        <button type="submit" id="submit">Submit</button>
-    </form>
-    <div id = "entries" >
-        <div>
-            <h2>Entries</h2>
-            <div id="user-entries"></div>
-        </div> 
     </div>
-</div>
-    <script src="reg.js"></script>
+    <script>
+        const email = document.getElementById('email');
+        email.addEventListener('input', () => validate(email));
+        function validate(element) {
+            const currentVal = element.value;
+            if (element.validity.typeMismatch) {
+                element.setCustomValidity("Please include an '@'in the email address. '" + currentVal + "' is missing an '@'");
+                element.reportValidity();
+            } else {
+                element.setCustomValidity('');
+            }
+        }
+
+        const dobInput = document.getElementById('dob');
+        const currentDate = new Date();
+        const minDate = new Date(currentDate.getFullYear() - 18, currentDate.getMonth(), currentDate.getDate());
+        const maxDate = new Date(currentDate.getFullYear() - 55, currentDate.getMonth(), currentDate.getDate());
+
+        let setDateLimits = () => {
+            const minDateString = minDate.toISOString().split('T')[0];
+            const maxDateString = maxDate.toISOString().split('T')[0];
+            dobInput.setAttribute('min', maxDateString);
+            dobInput.setAttribute('max', minDateString);
+        }
+        setDateLimits();
+        // eslint-disable-next-line no-undef
+        dob.addEventListener('input', function (event) {
+            const dobValue = new Date(dobInput.value);
+            if (dobValue > minDate || dobValue < maxDate) {
+                dobInput.setCustomValidity("Value must be " + minDate.getDate() + "/" + minDate.getMonth() + "/" + minDate.getFullYear() + " or later.");
+                dobInput.reportValidity();
+                event.preventDefault();
+            } else {
+                dobInput.setCustomValidity('');
+            }
+        });
+
+        let userForm = document.getElementById('user-form');
+        const retrieveEntries = () => {
+            let entries = localStorage.getItem("user-entries");
+            if (entries) {
+                entries = JSON.parse(entries);
+            } else {
+                entries = [];
+            }
+            return entries;
+        };
+        const displayEntries = () => {
+            const entries = retrieveEntries();
+
+            const tableEntries = entries.map((entry) => {
+                const nameCell = `<td class = 'border px-4 py-2'>${entry.name}</td>`;
+                const emailCell = `<td class = 'border px-4 py-2'>${entry.email}</td>`;
+                const passwordCell = `<td class = 'border px-4 py-2'>${entry.password}</td>`;
+                const dobCell = `<td class = 'border px-4 py-2'>${entry.dob}</td>`;
+                const acceptedTermsCell = `<td class = 'border px-4 py-2'>${entry.acceptedTerms}</td>`;
+
+                const row = `<tr>${nameCell} ${emailCell} ${passwordCell} ${dobCell} ${acceptedTermsCell} </tr>`;
+                return row;
+            }).join("\n");
+
+            // const table = `<table class = "table-auto w-full"><tr>
+            // <th class = "px-4 py-2">Name</th>
+            // <th class = "px-4 py-2">Email</th>
+            // <th class = "px-4 py-2">Password</th>
+            // <th class = "px-4 py-2">DOB</th>
+            // <th class = "px-4 py-2">Accepted Terms?</th>
+            // </tr>${tableEntries} </table>`;
+            const table = `<table style="border-collapse: collapse; width: 100%; margin: 20px 0;">
+    <thead>
+        <tr style="background-color: #f2f2f2;">
+            <th style="border: 1px solid #dddddd; padding: 8px;">Name</th>
+            <th style="border: 1px solid #dddddd; padding: 8px;">Email</th>
+            <th style="border: 1px solid #dddddd; padding: 8px;">Password</th>
+            <th style="border: 1px solid #dddddd; padding: 8px;">DOB</th>
+            <th style="border: 1px solid #dddddd; padding: 8px;">Accepted Terms?</th>
+        </tr>
+    </thead>
+    <tbody>
+        ${tableEntries}
+    </tbody>
+</table>`;
+            let details = document.getElementById("user-entries");
+            details.innerHTML = table;
+        }
+
+        let userEntries = retrieveEntries();
+        const saveUserForm = (event) => {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const dob = document.getElementById('dob').value;
+            const password = document.getElementById('password').value;
+
+            const acceptedTerms = document.getElementById('accept terms').checked;
+            const entry = {
+                name,
+                email,
+                dob,
+                password,
+                acceptedTerms
+            };
+            userEntries.push(entry);
+            localStorage.setItem("user-entries", JSON.stringify(userEntries));
+            displayEntries();
+        }
+        userForm.addEventListener("submit", saveUserForm);
+        displayEntries();
+        localStorage.clear();
+    </script>
 </body>
 
 </html>
