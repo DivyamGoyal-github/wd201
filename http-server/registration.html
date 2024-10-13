@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML_FORMS</title>
+    <link rel="stylesheet" href="styleswd201.css">
+</head>
+
+<body>
+    <div>
+    <form id="user-form">
+        <h3>Registration Form</h3>
+        <label for="name">Name</label>
+
+        <input required type="text" id="name" name="name">
+
+
+        <label for="email">Email</label>
+
+        <input required type="email" id="email" name="email">
+
+
+        <label for="password">Password</label>
+
+        <input required type="password" id="password" name="password">
+
+        <label for="dob">Date of Birth</label>
+
+        <input required type="date" id="dob" name="dob">
+
+        <div class="checkbox-container">
+            <input required type="checkbox" name="accept terms" id="accept terms">
+            <label for="accept terms">Accept Terms & Conditions</label>
+        </div>
+
+        <button type="submit" id="submit">Submit</button>
+    </form>
+    <div id = "entries" >
+        <div>
+            <h2>Entries</h2>
+            <div id="user-entries"></div>
+        </div> 
+    </div>
+</div>
+    <script src="reg.js"></script>
+</body>
+
+</html>

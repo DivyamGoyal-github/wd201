@@ -1,12 +1,15 @@
 {
-  "name": "hello-world",
+  "name": "http-server",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Divyam Goyal",
   "license": "ISC",
-  "description": ""
+  "description": "My http server application",
+  "dependencies": {
+    "express": "^4.21.1"
+  }
 }
